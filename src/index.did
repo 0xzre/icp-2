@@ -1,0 +1,14 @@
+type Paper = record {
+    id: text;
+    title: text;
+    authors: vec<text>;
+    abstract: text;
+    contentHash: text;
+    submissionDate: nat64;
+};
+
+service : {
+    submitPaper: (text, vec<text>, text, text) -> (variant { ok: Paper; err: text });
+    getPaper: (text) -> (variant { ok: Paper; err: text });
+    listPapers: () -> (variant { ok: vec<Paper>; err: text });
+}
