@@ -6,8 +6,8 @@ type Paper = Record<{
     title: string;
     authors: string[];
     abstract: string;
-    contentHash: string; // TODO: think about storing on IPFS
-    submissionDate: nat64;
+    contentHash: string; // TODO: Consider storing on IPFS
+    submissionTimestamp: nat64;
 }>;
 
 const papers = new StableBTreeMap<string, Paper>(0, 44, 1024);
@@ -15,7 +15,7 @@ const papers = new StableBTreeMap<string, Paper>(0, 44, 1024);
 $update;
 export function submitPaper(title: string, authors: string[], abstract: string, contentHash: string): Result<Paper, string> {
     const id = uuidv4();
-    const submissionDate = ic.time();
+    const submissionTimestamp = ic.time();
 
     const newPaper: Paper = {
         id,
@@ -23,7 +23,7 @@ export function submitPaper(title: string, authors: string[], abstract: string, 
         authors,
         abstract,
         contentHash,
-        submissionDate
+        submissionTimestamp
     };
 
     papers.insert(id, newPaper);
